@@ -27,7 +27,7 @@ Or use one of the following options.
 
 Use `Homebrew` to install *CaptainHook*.
 ```bash
-brew tap captainhook-git/captainhook-bin
+brew tap captainhook-git/captainhook
 brew install captainhook
 ```
 Use `go install` to install *CaptainHook*.
