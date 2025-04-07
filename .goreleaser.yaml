@@ -42,16 +42,16 @@ changelog:
 brews:
   - name: captainhook
     repository:
-      owner: captainhook-go
+      owner: captainhook-git
       name: homebrew-captainhook
       branch: main
 
     directory: Formula
-    url_template: "https://github.com/captainhook-go/captainhook/releases/download/{{ .Tag }}/{{ .ArtifactName }}"
+    url_template: "https://github.com/captainhook-git/captainhook-bin/releases/download/{{ .Tag }}/{{ .ArtifactName }}"
     commit_author:
       name: "Sebastian Feldmann"
       email: sebastianfeldmann@users.noreply.github.com
-    homepage: "http://captainhook.info/"
+    homepage: "https://captainhook.info/"
     commit_msg_template: "Brew formula update for {{ .ProjectName }} version {{ .Tag }}"
     description: "CaptainHook is a flexible git hooks manager that makes sharing git hooks a breeze"
     license: "MIT"
