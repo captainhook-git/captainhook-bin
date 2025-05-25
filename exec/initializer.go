@@ -76,7 +76,7 @@ func (i *Initializer) Run() error {
 }
 
 // pathToGit determines the relative path to the `.git` directory
-// If the configuration file is not withing the git directory this throws an error
+// If the configuration file is not within the git directory this throws an error
 func (i *Initializer) pathToGit(absoluteGit string) (string, error) {
 	confDir := path.Dir(i.config)
 	absoluteConf, _ := filepath.Abs(confDir)

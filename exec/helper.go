@@ -13,7 +13,7 @@ func isInternalFunctionality(action string) bool {
 }
 
 // splitInternalPath is determining the internal functionality to call
-// Internal paths consist of two blocks seperated by .
+// Internal paths consist of two blocks separated by .
 //
 // Examples:
 // - CaptainHook::SOME.FUNCTIONALITY
