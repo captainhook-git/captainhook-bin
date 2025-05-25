@@ -20,6 +20,7 @@ func AbbrevCommit(g *types.Cmd) {
 	g.AddOption("--abbrev-commit")
 }
 
+// AuthoredBy let you filter the log by commiter name
 func AuthoredBy(name string) func(g *types.Cmd) {
 	return func(g *types.Cmd) {
 		g.AddOption("--author=" + name)
@@ -33,6 +34,7 @@ func Format(format string) func(g *types.Cmd) {
 	}
 }
 
+// ParseXML converts the XML log output to a list of Commit structs
 func ParseXML(out string) ([]*types.Commit, error) {
 	var log []*types.Commit
 	xmlLog, err := types.ParseLogXml(out)
@@ -63,15 +65,17 @@ func InTimeFrame(after, before string) func(g *types.Cmd) {
 	}
 }
 
-// NameOnly is used to output only file names
+// NameOnly is used to output the files changed by the commit
 func NameOnly(g *types.Cmd) {
 	g.AddOption("--name-only")
 }
 
+// NameStatus shows the changed files and the status (A: added, M: modified...)
 func NameStatus(g *types.Cmd) {
 	g.AddOption("--name-status")
 }
 
+// NoCommitID will only show entries with no commit id
 func NoCommitID(g *types.Cmd) {
 	g.AddOption("--no-commit-id")
 }

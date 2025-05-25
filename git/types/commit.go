@@ -9,6 +9,7 @@ type Commit struct {
 	Body    string
 }
 
+// CreateCommitFromXML returns a Commit struct based on the received XML data
 func CreateCommitFromXML(xml *XmlCommit) *Commit {
 	c := Commit{
 		Hash:    xml.Hash,
