@@ -1,6 +1,8 @@
 package exec
 
 import (
+	"errors"
+	"fmt"
 	"github.com/captainhook-go/captainhook/configuration"
 	"github.com/captainhook-go/captainhook/git"
 	"github.com/captainhook-go/captainhook/hooks/util"
@@ -8,6 +10,7 @@ import (
 	"github.com/captainhook-go/captainhook/io"
 	"os"
 	"os/exec"
+	"path/filepath"
 	"sort"
 	"strings"
 	"text/template"
@@ -59,6 +62,7 @@ func (i *Installer) Run() error {
 	for _, hook := range keys {
 		err := i.installHook(hook, hooks[hook] && !i.force)
 		if err != nil {
+			i.appIO.Write("<warning>"+err.Error()+"</warning>", true, io.NORMAL)
 			return err
 		}
 	}
@@ -100,6 +104,11 @@ func (i *Installer) writeHookFile(hook string) error {
 		doIt = io.AnswerToBool(answer)
 	}
 
+	err := i.checkForBrokenSymlink(hook)
+	if err != nil {
+		return err
+	}
+
 	if doIt {
 		vars := make(map[string]interface{})
 		vars["HOOK_NAME"] = hook
@@ -110,7 +119,10 @@ func (i *Installer) writeHookFile(hook string) error {
 
 		tpl, _ := template.New("hook").Parse(i.HookTemplate())
 
-		file, _ := os.Create(i.repo.HooksDir() + "/" + hook)
+		file, fileErr := os.Create(i.repo.HooksDir() + "/" + hook)
+		if fileErr != nil {
+			return fileErr
+		}
 		defer file.Close()
 
 		tplErr := tpl.Execute(file, vars)
@@ -234,6 +246,31 @@ func (i *Installer) HookTemplate() string {
 		"\n" +
 		"{{ .RUN_PATH }} $INTERACTIVE--configuration={{ .CONFIGURATION }} --input=\"$input\" " +
 		"hook {{ .HOOK_NAME }} \"$@\" <&0\n\n"
+}
+
+func (i *Installer) checkForBrokenSymlink(hook string) error {
+	filePath := i.repo.HooksDir() + "/" + hook
+	isSymlink, _ := isSymlink(filePath)
+	if !isSymlink {
+		return nil
+	}
+	target, err := os.Readlink(filePath)
+	if err != nil {
+		return err
+	}
+	if !filepath.IsAbs(target) {
+		target = filepath.Join(filepath.Dir(filePath), target)
+	}
+
+	_, err = os.Stat(target)
+	if err != nil {
+		if os.IsNotExist(err) {
+			return errors.New(hook + " is a broken symlink please delete or fix it and try again")
+		}
+		fmt.Println("File fucked: ", err.Error())
+		return err
+	}
+	return nil
 }
 
 func NewInstaller(appIO io.IO, config *configuration.Configuration, repo git.Repo) *Installer {
