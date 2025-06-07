@@ -51,6 +51,9 @@ func (i *Installer) EnableBackup(backup bool) {
 }
 
 func (i *Installer) Run() error {
+	if i.skipInstall() {
+		return nil
+	}
 	hooks := i.getHooksToInstall()
 
 	// do some sort magic because go range random is weird
@@ -271,6 +274,20 @@ func (i *Installer) checkForBrokenSymlink(hook string) error {
 		return err
 	}
 	return nil
+}
+
+func (i *Installer) skipInstall() bool {
+	hooksPath := i.repo.HooksDir()
+	if (hooksPath == "/dev/null") || (hooksPath == "NUL") {
+		i.appIO.Write(
+			fmt.Sprintf(
+				"<warning>can't install hooks to %s please check your 'core.hooksPath' config</warning>", hooksPath),
+			true,
+			io.NORMAL,
+		)
+		return true
+	}
+	return false
 }
 
 func NewInstaller(appIO io.IO, config *configuration.Configuration, repo git.Repo) *Installer {
