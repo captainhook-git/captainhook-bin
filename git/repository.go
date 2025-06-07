@@ -49,12 +49,25 @@ func (r *Repository) HookExists(hook string) bool {
 func (r *Repository) HooksDir() string {
 	if r.hooksDir == "" {
 		r.hooksDir = r.gitDir + "/hooks"
-		var hooksPath = r.ConfigValue("core.hooksPath", "")
+		var hooksPath = r.hooksPath()
 		if hooksPath != "" {
-			r.hooksDir = r.root + "/" + hooksPath
+			r.hooksDir = hooksPath
 		}
 	}
 	return r.hooksDir
+}
+
+// hooksPath returns the core.hooksPath configured path
+// If the path is relative it will be prefixed with the repository root
+func (r *Repository) hooksPath() string {
+	hooksPath := r.ConfigValue("core.hooksPath", "")
+	if hooksPath == "" {
+		return ""
+	}
+	if path.IsAbs(hooksPath) {
+		return hooksPath
+	}
+	return r.root + "/" + hooksPath
 }
 
 func (r *Repository) CommitMessage(path string) (*types.CommitMessage, error) {
