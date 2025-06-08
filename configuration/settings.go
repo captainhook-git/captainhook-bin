@@ -41,19 +41,20 @@ func NewDefaultActionSettings() *ActionSettings {
 	}
 }
 
-func createActionSettingsFromJson(json *JsonActionSettings) *ActionSettings {
-	a := NewDefaultActionSettings()
-	if json == nil {
-		return a
-	}
-	if json.AllowFailure != nil {
-		a.AllowFailure = *json.AllowFailure
-	}
-	if json.WorkingDir != nil {
-		a.WorkingDir = *json.WorkingDir
-	}
-	if json.Label != nil {
-		a.Label = *json.Label
-	}
-	return a
+// NullableAppSettings represents the command argument and options that can be provided or can be skipped
+type NullableAppSettings struct {
+	AllowFailure     *bool
+	AnsiColors       *bool
+	Custom           *map[string]string
+	FailOnFirstError *bool
+	GitDirectory     *string
+	Includes         *[]string
+	IncludeLevel     *int
+	RunPath          *string
+	RunAsync         *bool
+	Verbosity        *string
+}
+
+func NewNullableAppSettings() *NullableAppSettings {
+	return &NullableAppSettings{}
 }

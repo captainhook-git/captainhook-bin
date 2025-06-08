@@ -87,34 +87,34 @@ func (c *Configuration) HookConfig(hook string) *Hook {
 }
 
 // overwriteSettings will overwrite every setting that is set in the jsonConfig.
-func (c *Configuration) overwriteSettings(json *JsonAppSettings) {
-	if json == nil {
+func (c *Configuration) overwriteSettings(settings *NullableAppSettings) {
+	if settings == nil {
 		return
 	}
 
-	if json.AllowFailure != nil {
-		c.settings.AllowFailure = *json.AllowFailure
+	if settings.AllowFailure != nil {
+		c.settings.AllowFailure = *settings.AllowFailure
 	}
-	if json.AnsiColors != nil {
-		c.settings.AnsiColors = *json.AnsiColors
+	if settings.AnsiColors != nil {
+		c.settings.AnsiColors = *settings.AnsiColors
 	}
-	if (json.Custom) != nil {
-		c.settings.Custom = *json.Custom
+	if (settings.Custom) != nil {
+		c.settings.Custom = *settings.Custom
 	}
-	if json.FailOnFirstError != nil {
-		c.settings.FailOnFirstError = *json.FailOnFirstError
+	if settings.FailOnFirstError != nil {
+		c.settings.FailOnFirstError = *settings.FailOnFirstError
 	}
-	if json.GitDirectory != nil {
-		c.settings.GitDirectory = *json.GitDirectory
+	if settings.GitDirectory != nil {
+		c.settings.GitDirectory = *settings.GitDirectory
 	}
-	if json.RunPath != nil {
-		c.settings.RunPath = *json.RunPath
+	if settings.RunPath != nil {
+		c.settings.RunPath = *settings.RunPath
 	}
-	if json.RunAsync != nil {
-		c.settings.RunAsync = *json.RunAsync
+	if settings.RunAsync != nil {
+		c.settings.RunAsync = *settings.RunAsync
 	}
-	if json.Verbosity != nil {
-		c.settings.Verbosity = *json.Verbosity
+	if settings.Verbosity != nil {
+		c.settings.Verbosity = *settings.Verbosity
 	}
 }
 

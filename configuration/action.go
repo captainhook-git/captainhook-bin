@@ -7,15 +7,6 @@ type Action struct {
 	options    *Options
 }
 
-func CreateActionFromJson(json *JsonAction) *Action {
-	return &Action{
-		run:        json.Run,
-		settings:   createActionSettingsFromJson(json.Settings),
-		conditions: createConditionsFromJson(json.Conditions),
-		options:    createOptionsFromJson(json.Options),
-	}
-}
-
 func (a *Action) Run() string {
 	return a.run
 }

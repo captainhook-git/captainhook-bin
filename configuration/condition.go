@@ -21,30 +21,3 @@ func (c *Condition) Conditions() []*Condition {
 func NewCondition(cmd string, o *Options, c []*Condition) *Condition {
 	return &Condition{run: cmd, options: o, conditions: c}
 }
-
-func createConditionsFromJson(jsonConditions []*JsonCondition) []*Condition {
-	var conditions []*Condition
-	if jsonConditions == nil {
-		return conditions
-	}
-	for _, condition := range jsonConditions {
-		conditions = append(conditions, createConditionFromJson(condition))
-	}
-	return conditions
-}
-
-func createConditionFromJson(json *JsonCondition) *Condition {
-	var c []*Condition
-
-	// default value empty options
-	opts := map[string]interface{}{}
-	o := NewOptions(opts)
-
-	if json.Options != nil {
-		o = createOptionsFromJson(json.Options)
-	}
-	if json.Conditions != nil {
-		c = createConditionsFromJson(json.Conditions)
-	}
-	return NewCondition(json.Run, o, c)
-}
