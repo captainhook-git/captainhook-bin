@@ -2,9 +2,12 @@ package commands
 
 import (
 	"errors"
+	"fmt"
 	"github.com/captainhook-go/captainhook/configuration"
 	"github.com/captainhook-go/captainhook/info"
 	"github.com/spf13/cobra"
+	"path/filepath"
+	"strings"
 )
 
 // configurationAware is for all commands that need to read or write a configuration
@@ -25,7 +28,7 @@ func repositoryAware(cmd *cobra.Command) {
 // This is important since the command line options should supersede all other ways of
 // configuring the Cap'n.
 func setUpConfig(cmd *cobra.Command, fileRequired bool) (*configuration.Configuration, error) {
-	nullableSettings := &configuration.JsonAppSettings{}
+	nullableSettings := &configuration.NullableAppSettings{}
 
 	detectColor(cmd, nullableSettings)
 	detectGitDir(cmd, nullableSettings)
@@ -36,8 +39,17 @@ func setUpConfig(cmd *cobra.Command, fileRequired bool) (*configuration.Configur
 	if len(confOption) > 0 {
 		confPath = confOption
 	}
+	var factory configuration.ConfigFactory
+	ext := strings.ToLower(filepath.Ext(confPath))
+	switch ext {
+	case ".yaml", ".yml":
+		factory = configuration.NewYamlFactory()
+	case ".json":
+		factory = configuration.NewJsonFactory()
+	default:
+		return nil, errors.New(fmt.Sprintf("Unknown configuration format: %s", ext))
+	}
 
-	factory := configuration.NewFactory()
 	conf, confErr := factory.CreateConfig(confPath, nullableSettings)
 	if confErr != nil {
 		return nil, confErr
@@ -49,7 +61,7 @@ func setUpConfig(cmd *cobra.Command, fileRequired bool) (*configuration.Configur
 }
 
 // detectColor is checking the `--no-color` option and sets the configuration accordingly
-func detectColor(cmd *cobra.Command, settings *configuration.JsonAppSettings) {
+func detectColor(cmd *cobra.Command, settings *configuration.NullableAppSettings) {
 	noColor := getNoColor(cmd)
 	if noColor {
 		falsePointer := false
@@ -63,7 +75,7 @@ func getNoColor(cmd *cobra.Command) bool {
 }
 
 // detectGitDir is checking the `--git-directory` option and sets the configuration accordingly
-func detectGitDir(cmd *cobra.Command, settings *configuration.JsonAppSettings) {
+func detectGitDir(cmd *cobra.Command, settings *configuration.NullableAppSettings) {
 	repoOption := getGitDir(cmd)
 	if len(repoOption) > 0 {
 		settings.GitDirectory = &repoOption
@@ -80,7 +92,7 @@ func getGitDir(cmd *cobra.Command) string {
 }
 
 // detectVerbosity is checking the `--verbose` and `--debug` options and sets the configuration accordingly
-func detectVerbosity(cmd *cobra.Command, settings *configuration.JsonAppSettings) {
+func detectVerbosity(cmd *cobra.Command, settings *configuration.NullableAppSettings) {
 	v := getVerbosity(cmd)
 	if v != "normal" {
 		settings.Verbosity = &v

@@ -8,7 +8,7 @@ import (
 
 func TestCustomValueIsFalsy(t *testing.T) {
 	inOut := test.CreateFakeIO()
-	conf, _ := configuration.NewFactory().CreateConfig("../../../test/files/config/valid_with_custom.json", &configuration.JsonAppSettings{})
+	conf, _ := configuration.NewJsonFactory().CreateConfig("../../../test/files/config/valid_with_custom.json", &configuration.NullableAppSettings{})
 	repo := test.CreateFakeRepo()
 
 	options := configuration.NewOptions(map[string]interface{}{"value": "fiz"})
@@ -22,7 +22,7 @@ func TestCustomValueIsFalsy(t *testing.T) {
 
 func TestCustomValueIsNotFalsy(t *testing.T) {
 	inOut := test.CreateFakeIO()
-	conf, _ := configuration.NewFactory().CreateConfig("../../../test/files/config/valid_with_custom.json", &configuration.JsonAppSettings{})
+	conf, _ := configuration.NewJsonFactory().CreateConfig("../../../test/files/config/valid_with_custom.json", &configuration.NullableAppSettings{})
 	repo := test.CreateFakeRepo()
 
 	options := configuration.NewOptions(map[string]interface{}{"value": "foo"})

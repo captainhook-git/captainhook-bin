@@ -4,6 +4,8 @@
 # ignore the local captainhook.json configuration
 /captainhook.json
 /captainhook.config.json
+/captainhook.yml
+/captainhook.config.yml
 
 # ignore goreleaser build directory
 /dist/
