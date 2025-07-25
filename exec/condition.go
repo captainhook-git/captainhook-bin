@@ -54,7 +54,7 @@ func (c *ConditionRunner) createInternalCondition(condition *configuration.Condi
 	path := splitInternalPath(condition.Run())
 	conditionGenerator, err := conditions.ConditionCreationFunc(path)
 	if err != nil {
-		c.cIO.Write("ConditionRunner: "+condition.Run()+"\n"+err.Error(), true, io.NORMAL)
+		c.cIO.Write("ConditionRunner: "+condition.Run()+"\n"+err.Error(), true, io.QUIET)
 		return nil, err
 	}
 	return conditionGenerator(c.cIO, c.conf, c.repo), nil

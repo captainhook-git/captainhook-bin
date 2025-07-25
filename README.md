@@ -59,7 +59,7 @@ Here's an example *captainhook.json* configuration file.
     "commit-msg": {
       "actions": [
         {
-          "run": "CaptainHook::Message.MustFollowBeamsRules"
+          "run": "CaptainHook.Message.MustFollowBeamsRules"
         }
       ]
     },
@@ -73,7 +73,7 @@ Here's an example *captainhook.json* configuration file.
     "pre-push": {
       "actions": [
         {
-          "run": "CaptainHook::Branch.PreventPushOfFixupAndSquashCommits",
+          "run": "CaptainHook.Branch.PreventPushOfFixupAndSquashCommits",
           "options": {
             "branches-to-protect": ["main", "integration"]
           }

@@ -47,7 +47,7 @@ var (
 // ActionCreationFunc is returning a function to create the configured action
 func ActionCreationFunc(path []string) (func(appIO io.IO, conf *configuration.Configuration, repo git.Repo) hooks.Action, error) {
 	if len(path) != 2 {
-		return nil, errors.New("invalid actions functionality")
+		return nil, errors.New("invalid action functionality")
 	}
 
 	for index, value := range path {

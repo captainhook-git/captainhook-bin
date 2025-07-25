@@ -6,13 +6,15 @@ import (
 )
 
 // isILogicCondition checks if the condition is an "AND" or an "OR" condition
-func isLogicCondition(action string) bool {
-	return strings.HasPrefix(strings.ToLower(action), "captainhook::logic")
+func isLogicCondition(exec string) bool {
+	return strings.HasPrefix(strings.ToLower(exec), "captainhook::logic") ||
+		strings.HasPrefix(strings.ToLower(exec), "captainhook.logic")
 }
 
 // isInternalFunctionality answers if an action should trigger internal CaptainHook functionality
-func isInternalFunctionality(action string) bool {
-	return strings.HasPrefix(strings.ToLower(action), "captainhook::")
+func isInternalFunctionality(exec string) bool {
+	return strings.HasPrefix(strings.ToLower(exec), "captainhook::") ||
+		strings.HasPrefix(strings.ToLower(exec), "captainhook.")
 }
 
 // splitInternalPath is determining the internal functionality to call
@@ -20,10 +22,16 @@ func isInternalFunctionality(action string) bool {
 //
 // Examples:
 // - CaptainHook::SOME.FUNCTIONALITY
-// - CaptainHook::Branch.EnsureNaming
-func splitInternalPath(action string) []string {
-	actionPath := strings.Split(action, "::")[1]
-	return strings.Split(actionPath, ".")
+// - CaptainHook.Branch.EnsureNaming
+func splitInternalPath(exec string) []string {
+	var prefix string
+	if strings.HasPrefix(strings.ToLower(exec), "captainhook::") {
+		prefix = "captainhook::"
+	} else {
+		prefix = "captainhook."
+	}
+	pathInfo := strings.Replace(strings.ToLower(exec), prefix, "", 1)
+	return strings.Split(pathInfo, ".")
 }
 
 // isSymlink checks if a file is a symlink
