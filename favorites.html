@@ -54,7 +54,7 @@
   <pre><code class="javascript">  "commit-msg": {
     "actions": [
       {
-        "run": "CaptainHook::Message.MustFollowBeamsRules",
+        "run": "CaptainHook.Message.MustFollowBeamsRules",
         "options": {
           "subject-length": 50,
           "body-line-length": 72
@@ -71,7 +71,7 @@
         "run": "cs-style-check {$STAGED_FILES|of-type:go|separated-by: }",
         "conditions": [
           {
-            "run": "CaptainHook::FileStaged.ThatIs",
+            "run": "CaptainHook.FileStaged.ThatIs",
             "options": {"of-type": "go"]
           }
         ]
@@ -98,7 +98,7 @@
         "action": "go mod -u",
         "conditions": [
           {
-            "run": "CaptainHook::FileChanged.Any",
+            "run": "CaptainHook.FileChanged.Any",
             "options": {
               "files": ["go.mod", "go.sum"]
             }

@@ -292,7 +292,7 @@
   "commit-msg": {
     "actions": [
       {
-        "run": "CaptainHook::Message.ContainsRegex",
+        "run": "CaptainHook.Message.ContainsRegex",
         "options": {
           "regex": ".*"
         }
@@ -327,7 +327,7 @@
         "run": "go mod download",
         "conditions": [
           {
-            "run": "CaptainHook::FileChanged.Any",
+            "run": "CaptainHook.FileChanged.Any",
             "options": {
               "files": ["go.mod", "go.sum"]
             }
@@ -357,7 +357,7 @@
   "pre-commit": {
     "actions": [
       {
-        "run": "CaptainHook::Message.ContainsRegex",
+        "run": "CaptainHook.Message.ContainsRegex",
         "options": {
           "regex": ".*"
         }

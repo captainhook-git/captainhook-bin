@@ -130,10 +130,10 @@
       <pre><code class="javascript">{
   "conditions": [
     {
-      "run": "CaptainHook::Logic.And",
+      "run": "CaptainHook.Logic.And",
       "conditions": [
         {
-          "run": "CaptainHook::Status.OnBranch",
+          "run": "CaptainHook.Status.OnBranch",
           "options": {
             "branch": "master"
           }
@@ -153,10 +153,10 @@
       <pre><code class="javascript">{
   "conditions": [
     {
-      "run": "CaptainHook::Logic.Or",
+      "run": "CaptainHook.Logic.Or",
       "conditions": [
         {
-          "run": "CaptainHook::Status.OnBranch",
+          "run": "CaptainHook.Status.OnBranch",
           "options": {
             "branch": "master"
           }
@@ -172,7 +172,7 @@
       <pre><code class="javascript">{
   "conditions": [
     {
-      "run": "CaptainHook::Status.OnBranch",
+      "run": "CaptainHook.Status.OnBranch",
       "options": {
         "branch": "master"
       }
@@ -186,7 +186,7 @@
       <pre><code class="javascript">{
   "conditions": [
     {
-      "run": "CaptainHook::Config.CustomConfigValueIsTruthy",
+      "run": "CaptainHook.Config.CustomConfigValueIsTruthy",
       "options": {
         "value": "MY_CONFIG_VALUE"
       }
@@ -200,7 +200,7 @@
       <pre><code class="javascript">{
   "conditions": [
     {
-      "run": "CaptainHook::Config.CustomConfigValueIsFalsy",
+      "run": "CaptainHook.Config.CustomConfigValueIsFalsy",
       "options": {
         "value": "MY_CONFIG_VALUE"
       }
@@ -214,7 +214,7 @@
       <pre><code class="javascript">{
   "conditions": [
     {
-      "run": "CaptainHook::FileStaged.All",
+      "run": "CaptainHook.FileStaged.All",
       "options": {
         "files": ["foo.html", "bar.html", "*.css"]
       }
@@ -228,7 +228,7 @@
       <pre><code class="javascript">{
   "conditions": [
     {
-      "run": "CaptainHook::FileStaged.Any",
+      "run": "CaptainHook.FileStaged.Any",
       "options": {
         "files": ["foo.html", "bar.html", "*.css"]
       }
@@ -242,7 +242,7 @@
       <pre><code class="javascript">{
   "conditions": [
     {
-      "run": "CaptainHook::FileStaged.OfType",
+      "run": "CaptainHook.FileStaged.OfType",
       "options": {
         "of-type": "go",
         "in-directory": "cmd"
@@ -257,7 +257,7 @@
       <pre><code class="javascript">{
   "conditions": [
     {
-      "run": "CaptainHook::FileChanged.All",
+      "run": "CaptainHook.FileChanged.All",
       "options": {
         "files": ["foo.html", "bar.html", "*.php"]
       }
@@ -271,7 +271,7 @@
       <pre><code class="javascript">{
   "conditions": [
     {
-      "run": "CaptainHook::FileChanged.Any‚",
+      "run": "CaptainHook.FileChanged.Any‚",
       "options": {
         "files": ["foo.html", "bar.html", "*.css"]
       }
@@ -285,7 +285,7 @@
       <pre><code class="javascript">{
   "conditions": [
     {
-      "run": "CaptainHook::FileChange.OfType",
+      "run": "CaptainHook.FileChange.OfType",
       "options": {
         "of-type": "go",
         "in-directory": "cmd"

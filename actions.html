@@ -77,7 +77,7 @@
     <li>Use imperative mood</li>
   </ul>
   <pre><code class="javascript">{
-  "run": "CaptainHook::Message.MustFollowBeamsRules"
+  "run": "CaptainHook.Message.MustFollowBeamsRules"
 }</code></pre>
 
   <h4 id="msg-regex">Commit message regex validation</h4>
@@ -85,7 +85,7 @@
     Use a regex to validate your commit messages.
   </p>
   <pre><code class="javascript">{
-  "run": "CaptainHook::Message.ContainsRegex",
+  "run": "CaptainHook.Message.ContainsRegex",
   "options": {
     "regex": ".*"
   }
@@ -97,7 +97,7 @@
     you don't have to type the whole message again. Instead, you can just fix the errors and proceed.
   </p>
   <pre><code class="javascript">{
-  "run": "CaptainHook::Message.CacheOnFail",
+  "run": "CaptainHook.Message.CacheOnFail",
   "options": {
     "file": ".git/CH_MSG.temp"
   }
@@ -127,7 +127,7 @@
     option to <em>true</em> it will fail if no issue key can be extracted.
   </p>
   <pre><code class="javascript">{
-  "action": "CaptainHook::Message.InjectIssueKeyFromBranch",
+  "action": "CaptainHook.Message.InjectIssueKeyFromBranch",
   "options": {
     "regex": "#([A-Z]+\\-[0-9]+)#i",
     "into": "body",
@@ -143,7 +143,7 @@
     previous commit attempt.
   </p>
   <pre><code class="javascript">{
-  "action": "CaptainHook::Message.PrepareFromFile",
+  "action": "CaptainHook.Message.PrepareFromFile",
   "options": {
     "file": ".git/CH_MSG.temp"
   }
@@ -157,7 +157,7 @@
     You can define an allow list of accepted secrets to allow certain secrets to be committed.
   </p>
   <pre><code class="javascript">{
-  "run": "CaptainHook::File.BlockSecrets",
+  "run": "CaptainHook.File.BlockSecrets",
   "options: {
     "presets": ["Aws", "GitHub", "Stripe", "Google"],
     "blocked": ["pattern1", "pattern2"],
@@ -171,7 +171,7 @@
     Use 'B', 'K' or 'M' as size indication.
   </p>
   <pre><code class="javascript">{
-  "run": "CaptainHook::File.MaxSize",
+  "run": "CaptainHook.File.MaxSize",
   "options": {
     "max-size": "5M"
   }
@@ -197,7 +197,7 @@
     Make sure you do not commit specific contents to a list of file types.
   </p>
   <pre><code class="javascript">{
-  "run": "CaptainHook::File.DoesNotContainRegex",
+  "run": "CaptainHook.File.DoesNotContainRegex",
   "options": {
     "regex": "os.exit"
     "regexName": "debug output"
@@ -212,7 +212,7 @@
     Make sure branch names match a configured regex.
   </p>
   <pre><code class="javascript">{
-  "run": "CaptainHook::Branch.EnsureNaming",
+  "run": "CaptainHook.Branch.EnsureNaming",
   "options": {
     "regex": "master|integration|feature/[a-z]+-[0-9]+"
   }
@@ -225,7 +225,7 @@
     prohibited.
   </p>
   <pre><code class="javascript">{
-  "run": "CaptainHook::Branch.BlockFixupAndSquashCommits",
+  "run": "CaptainHook.Branch.BlockFixupAndSquashCommits",
   "options": {
     "protected-branches": ["main", "master"]
   }
@@ -245,7 +245,7 @@ git-notify: WARNING
 Please update your dev tooling</pre>
   </div>
   <pre><code class="javascript">{
-  "run": "CaptainHook::Notify.GitNotify",
+  "run": "CaptainHook.Notify.GitNotify",
   "options": {
     "prefix": "git-notify:"
   }
