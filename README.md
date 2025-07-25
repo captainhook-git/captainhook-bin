@@ -18,7 +18,7 @@ or run unit tests before you commit or push changes to git. You can automaticall
 local caches or install the correct dependencies after pulling the latest changes.
 
 You can run your own commands or use loads of built-in functionality.
-For more information have a look at the [documentation](https://captainhook-go.github.io/captainhook/ "CaptainHook Documentation").
+For more information have a look at the [documentation](https://go.captainhook.info/ "CaptainHook Documentation").
 
 ## Installation
 
